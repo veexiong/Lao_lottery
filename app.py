@@ -32,8 +32,8 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
     @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
     
-    html, body, .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, div, table, th, td, select, textarea {
-        font-family: 'Noto Sans Lao', sans-serif;
+    *, html, body, .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, button, div, span, table, th, td, select, textarea, input {
+        font-family: 'Noto Sans Lao', sans-serif !important;
     }
     
     /* Preserve Streamlit Material Icons in Header, Sidebar & Collapsed Mobile Control */
@@ -269,15 +269,16 @@ st.markdown("""
         display: none !important;
     }
     div[data-baseweb="tab-list"] {
+        position: -webkit-sticky !important;
         position: sticky !important;
-        top: 54px !important;
-        z-index: 999 !important;
+        top: 3.5rem !important;
+        z-index: 9999 !important;
         gap: 6px !important;
-        background: #f1f5f9 !important;
-        padding: 5px !important;
+        background: #ffffff !important;
+        padding: 6px 8px !important;
         border-radius: 14px !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+        border: 1.5px solid #cbd5e1 !important;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
         overflow-x: auto !important;
         flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch !important;
@@ -317,14 +318,17 @@ st.markdown("""
 
     @media (max-width: 768px) {
         div[data-baseweb="tab-list"] {
-            top: 48px !important;
+            top: 2.8rem !important;
             justify-content: flex-start !important;
             gap: 4px !important;
-            padding: 4px !important;
+            padding: 5px 6px !important;
+            border-radius: 12px !important;
+            background: #ffffff !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
         }
         div[data-baseweb="tab"] {
             padding: 6px 14px !important;
-            font-size: 0.84rem !important;
+            font-size: 0.85rem !important;
             height: 38px !important;
             flex: 0 0 auto !important;
         }
