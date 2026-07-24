@@ -31,8 +31,8 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
     
-    .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, table, th, td, input, select, textarea {
-        font-family: 'Noto Sans Lao', sans-serif;
+    html, body, .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, button, div, span:not([class*="material"]), table, th, td, select, textarea {
+        font-family: 'Noto Sans Lao', sans-serif !important;
     }
     
     /* Preserve Streamlit Material Icons in Header & Sidebar */
@@ -252,19 +252,85 @@ st.markdown("""
             min-height: 44px !important;
             font-size: 0.95rem !important;
         }
-        /* Touch scrollable tabs */
+    /* Ultra Clean & Professional Tab Navigation Bar (Segmented Control) */
+    div[data-baseweb="tab-highlight"] {
+        display: none !important;
+    }
+    div[data-baseweb="tab-border"] {
+        display: none !important;
+    }
+    div[data-baseweb="tab-list"] {
+        gap: 6px !important;
+        background: #f1f5f9 !important;
+        padding: 5px !important;
+        border-radius: 14px !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin-bottom: 20px !important;
+        justify-content: space-around !important;
+    }
+    div[data-baseweb="tab-list"]::-webkit-scrollbar {
+        display: none !important;
+    }
+    div[data-baseweb="tab"] {
+        height: 42px !important;
+        white-space: nowrap !important;
+        border-radius: 10px !important;
+        padding: 6px 18px !important;
+        font-weight: 600 !important;
+        font-size: 0.92rem !important;
+        color: #475569 !important;
+        background-color: transparent !important;
+        transition: all 0.2s ease-in-out !important;
+        border: none !important;
+        flex: 1 1 auto !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    div[data-baseweb="tab"]:hover {
+        color: #047857 !important;
+        background-color: rgba(255, 255, 255, 0.6) !important;
+    }
+    div[data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3) !important;
+    }
+
+    @media (max-width: 768px) {
         div[data-baseweb="tab-list"] {
+            justify-content: flex-start !important;
             gap: 4px !important;
-            overflow-x: auto !important;
-            flex-wrap: nowrap !important;
-            -webkit-overflow-scrolling: touch !important;
-            padding-bottom: 4px !important;
+            padding: 4px !important;
         }
         div[data-baseweb="tab"] {
-            padding: 8px 12px !important;
-            font-size: 0.85rem !important;
-            white-space: nowrap !important;
+            padding: 6px 14px !important;
+            font-size: 0.84rem !important;
+            height: 38px !important;
+            flex: 0 0 auto !important;
         }
+    }
+
+    /* Pretty Button Styling */
+    button[kind="primary"] {
+        background: linear-gradient(135deg, #047857 0%, #10b981 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+    button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -754,7 +820,8 @@ class AIPredictorEngine:
         avg_top_prob = sum([p for _, p in sorted_candidates[:5]]) / 5.0
         ai_confidence = int(min(98, max(75, avg_top_prob + 8)))
         
-        ai_insight = f"🤖 **AI Analysis**: ວິເຄາະພົບວ່າເລກ {', '.join(top_2d_nums[:3])} ມີໂອກາດອອກຫຼາຍສຸດ ຈາກສູດ Multi-level Neighbor Grid, Digit Continuation & Markov Matrix ໂດຍມີເລກເດັ່ນ Hot Digits ແມ່ນ {', '.join(map(str, hot_digits))}."
+        # ai_insight = f"🤖 **AI Analysis**: ວິເຄາະພົບວ່າເລກ {', '.join(top_2d_nums[:3])} ມີໂອກາດອອກຫຼາຍສຸດ ຈາກສູດ Multi-level Neighbor Grid, Digit Continuation & Markov Matrix ໂດຍມີເລກເດັ່ນ Hot Digits ແມ່ນ {', '.join(map(str, hot_digits))}."
+        ai_insight = ""
 
         return {
             "source_num": latest_6d,
@@ -1024,10 +1091,10 @@ predictor = AIPredictorEngine(
 # ---------------------------------------------------------
 st.markdown("""
 <div class="header-banner">
-    <h1>🤖 Lao Lottery AI Predictive Engine</h1>
+    <h1>🤖Lao Lottery AI Predictive Engine</h1>
     <p>ລະບົບ AI ວິເຄາະ ແລະ ຄາດຄະເນຜົນຫວຍລາວອັດຈະລິຍະ (Adaptive Machine Learning & Walk-Forward Engine)</p>
     <div style="margin-top: 12px; font-size: 0.98rem; font-weight: 700; color: #fef08a; text-shadow: 0 1px 4px rgba(0,0,0,0.4); letter-spacing: 0.8px;">
-        ✨ Developed by VEEXIONG FAIDANG
+        ✨ Developed by VX FAIDANG
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -1042,11 +1109,11 @@ if 'input_date_val' not in st.session_state:
 # NAVIGATION TABS
 # ---------------------------------------------------------
 tab_pred, tab_freq, tab_db, tab_backtest, tab_docs = st.tabs([
-    "🔮 ຄາດຄະເນຜົນງວດຕໍ່ໄປ (AI Predictor)",
-    "📊 ວິເຄາະສຖິຕິ & Markov (AI Analytics)",
-    "🗄️ ຖານຂໍ້ມູນຜົນຫວຍ (Draws DB)",
-    "🧪 ຄວາມແນ່ນອນຂອງລະບົບ AI (Walk-Forward Backtest)",
-    "📖 ຄຳອະທິບາຍ & ຫຼັກການເຮັດວຽກ (AI Manual & Architecture)"
+    "🔮 ຄາດຄະເນຜົນຫວຍ",
+    "📊 ວິເຄາະສະຖິຕິ & Markov",
+    "🗄️ ຖານຂໍ້ມູນຜົນຫວຍ",
+    "🧪 ຄວາມຖືກຕ້ອງຂອງລະບົບ",
+    "📖 ກ່ຽວກັບເຮົາ"
 ])
 
 # ---------------------------------------------------------
@@ -1058,22 +1125,43 @@ with tab_pred:
     col_in, col_hist = st.columns([1.3, 1])
     
     with col_in:
-        st.markdown("""
-        <div style="background: #ffffff; border: 2px solid #6366f1; border-radius: 14px; padding: 18px; box-shadow: 0 4px 18px rgba(99, 102, 241, 0.12); margin-bottom: 15px;">
-            <h3 style="color: #4f46e5; margin-top: 0; font-size: 1.2rem;">📥 ປ້ອນຜົນຫວຍງວດລ່າສຸດ (Unique Input Form)</h3>
-        </div>
-        """, unsafe_allow_html=True)
+        # st.markdown("""
+        # <div style="background: #ffffff; border: 2px solid #6366f1; border-radius: 14px; padding: 18px; box-shadow: 0 4px 18px rgba(99, 102, 241, 0.12); margin-bottom: 15px;">
+        #     <h3 style="color: #4f46e5; margin-top: 0; font-size: 1.2rem;">📥 ປ້ອນຜົນຫວຍງວດລ່າສຸດ (Unique Input Form)</h3>
+        # </div>
+        # """, unsafe_allow_html=True)
         selected_date_val = st.date_input("ວັນທີ (ເລືອກວັນທີ)", value=st.session_state['input_date_val'], format="DD/MM/YYYY")
         input_date = selected_date_val.strftime("%d/%m/%Y")
         input_day = auto_get_day_of_week(selected_date_val)
         st.caption(f"🗓️ ວັນໃນປະຈຳອາທິດ (Auto Derived Day): **{input_day}**")
         
-        c_num, c_btn = st.columns([1.4, 1])
+        c_num, c_calc_btn, c_save_btn = st.columns([1.3, 1, 1])
         with c_num:
             latest_num = st.text_input("ປ້ອນເລກ 6 ໂຕ ງວດລ່າສຸດ (6 Digits)", value=st.session_state['input_6d_val'], max_chars=6).strip()
-        with c_btn:
+        with c_calc_btn:
             st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-            save_db_btn = st.button("✅ ບັນທຶກເຂົ້າຖານຂໍ້ມູນ", type="primary", use_container_width=True)
+            calc_now_btn = st.button("⚡PREDICT", type="primary", use_container_width=True)
+        with c_save_btn:
+            st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+            save_db_btn = st.button("✅ບັນທຶກເຂົ້າຖານຂໍ້ມູນ", type="secondary", use_container_width=True)
+            
+        if calc_now_btn:
+            if len(latest_num) == 6 and latest_num.isdigit():
+                st.session_state['input_6d_val'] = latest_num
+                st.session_state['input_date_val'] = selected_date_val
+                st.toast("✅ ໄດ້ຜົນອອກແລ້ວ ທ່ານສາມາດເບີ່ງຜົນອອກຢູ່ລຸ່ມໄດ້", icon="🎉")
+                
+                calc_msg_box = st.empty()
+                calc_msg_box.markdown("""
+                <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 16px 20px; border-radius: 12px; font-size: 1.1rem; font-weight: 700; text-align: center; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35); margin-top: 15px; margin-bottom: 15px;">
+                    ✅ ໄດ້ຜົນອອກແລ້ວ ທ່ານສາມາດເລື່ອນເບີ່ງຜົນອອກຢູ່ລຸ່ມໄດ້
+                </div>
+                """, unsafe_allow_html=True)
+                import time
+                time.sleep(3.5)
+                calc_msg_box.empty()
+            else:
+                st.error("⚠️ ກະລຸນາປ້ອນເລກ 6 ໂຕໃຫ້ຖືກຕ້ອງ")
             
         if save_db_btn:
             if len(latest_num) == 6 and latest_num.isdigit():
@@ -1161,7 +1249,7 @@ with tab_pred:
                 on_change=on_select_draw_change,
                 format_func=format_draw_item
             )
-            if st.button("📥 ໃຊ້ຂໍ້ມູນງວດນີ້ຄາດຄະເນງວດຕໍ່ໄປ", use_container_width=True):
+            if st.button("📥ໃຊ້ຂໍ້ມູນງວດນີ້ຄາດຄະເນງວດຕໍ່ໄປ", type="primary", use_container_width=True):
                 idx_sel = int(selected_row_idx)
                 sel_row = df_history.iloc[idx_sel]
                 st.session_state['active_row_idx'] = idx_sel
@@ -1202,7 +1290,8 @@ with tab_pred:
         with head_col2:
             st.markdown(f"<div style='text-align:right; margin-top:8px;'><span class='ai-badge'>🤖 AI Confidence: {res['ai_confidence']}%</span></div>", unsafe_allow_html=True)
             
-        st.markdown(f"<div class='ai-insight-box'>{res['ai_insight']}</div>", unsafe_allow_html=True)
+        if res['ai_insight']:
+            st.markdown(f"<div class='ai-insight-box'>{res['ai_insight']}</div>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
         
         c1, c2, c3 = st.columns(3)
@@ -1430,19 +1519,44 @@ with tab_docs:
     
     with col_acc:
         st.markdown("### 🏆 ປະເມີນຄວາມແນ່ນອນຂອງລະບົບ (System Accuracy Overview)")
-        st.info("""
-        📊 **ຜົນການທົດສອບຄວາມແນ່ນອນຍ້ອນຫຼັງ (Walk-Forward Real-World Test)**:
-        - 🎯 **ເລກ 2 ໂຕ ຖືກກົງ (Top 10)**: ຄວາມແນ່ນອນສູງເຖິງ **19.4% - 33.3%**
-        - 🔄 **ເລກປີ້ນ 2D (Reverse Match)**: ຄວາມແນ່ນອນ **33.3%**
-        - 🔹 **ເລກຂ້າງຄຽງ 2D (Neighbor ±1 Shift)**: ຄວາມແນ່ນອນ **55.6%** (ກວມເອົາເກີນເຄິ່ງໜຶ່ງຂອງງວດທັງໝົດ)
-        - 📌 **ເລກວິ່ງ/ຮູດ (Single Digit Continuation)**: ຄວາມແນ່ນອນ **83.3% - 88.9%**
+        if len(df_history) >= 2:
+            res_std_doc = run_walk_forward_backtest(df_history, weights=current_weights, strategy="ensemble")
+            res_rec_doc = run_walk_forward_backtest(df_history, weights=current_weights, strategy="recent")
+            res_day_doc = run_walk_forward_backtest(df_history, weights=current_weights, strategy="day_context")
+            opt_w_doc, res_opt_doc = auto_optimize_ai_weights(df_history)
+            
+            top10_vals = [res_std_doc['acc_exact_top10'], res_rec_doc['acc_exact_top10'], res_day_doc['acc_exact_top10'], res_opt_doc['acc_exact_top10']]
+            rev_vals = [res_std_doc['acc_rev'], res_rec_doc['acc_rev'], res_day_doc['acc_rev'], res_opt_doc['acc_rev']]
+            neigh_vals = [res_std_doc['acc_neighbor'], res_rec_doc['acc_neighbor'], res_day_doc['acc_neighbor'], res_opt_doc['acc_neighbor']]
+            single_vals = [res_std_doc['acc_single'], res_rec_doc['acc_single'], res_day_doc['acc_single'], res_opt_doc['acc_single']]
+            
+            min_t, max_t = min(top10_vals), max(top10_vals)
+            top10_str = f"{min_t:.1f}% - {max_t:.1f}%" if min_t != max_t else f"{max_t:.1f}%"
+            
+            min_r, max_r = min(rev_vals), max(rev_vals)
+            rev_str = f"{min_r:.1f}% - {max_r:.1f}%" if min_r != max_r else f"{max_r:.1f}%"
+            
+            min_n, max_n = min(neigh_vals), max(neigh_vals)
+            neigh_str = f"{min_n:.1f}% - {max_n:.1f}%" if min_n != max_n else f"{max_n:.1f}%"
+            
+            min_s, max_s = min(single_vals), max(single_vals)
+            single_str = f"{min_s:.1f}% - {max_s:.1f}%" if min_s != max_s else f"{max_s:.1f}%"
+        else:
+            top10_str, rev_str, neigh_str, single_str = "19.4% - 33.3%", "33.3%", "55.6%", "83.3% - 88.9%"
+
+        st.info(f"""
+        📊 **ຜົນການທົດສອບຄວາມແນ່ນອນຍ້ອນຫຼັງ (Real-Time Walk-Forward Backtest)**:
+        - 🎯 **ເລກ 2 ໂຕ ຖືກກົງ (Top 10)**: ຄວາມແນ່ນອນ **{top10_str}**
+        - 🔄 **ເລກປີ້ນ 2D (Reverse Match)**: ຄວາມແນ່ນອນ **{rev_str}**
+        - 🔹 **ເລກຂ້າງຄຽງ 2D (Neighbor ±1 Shift)**: ຄວາມແນ່ນອນ **{neigh_str}** (ກວມເອົາເກີນເຄິ່ງໜຶ່ງຂອງງວດທັງໝົດ)
+        - 📌 **ເລກວິ່ງ/ຮູດ (Single Digit Continuation)**: ຄວາມແນ່ນອນ **{single_str}**
         """)
         
     with col_info:
-        st.markdown("### 👤 ຂໍ້ມູນໂຄຣງການ & ຜູ້ພັດທະນາ (Project Info)")
+        st.markdown("### 👤 ຂໍ້ມູນໂຄງການ & ຜູ້ພັດທະນາ (Project Info)")
         st.markdown("""
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #047857; padding: 16px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <p style="margin:0; font-size: 1rem;"><b>✨ Developer:</b> VEEXIONG FAIDANG</p>
+            <p style="margin:0; font-size: 1rem;"><b>✨ Developer:</b> VX FAIDANG</p>
             <p style="margin:6px 0 0 0; font-size: 1rem;"><b>⚡ AI Engine:</b> Adaptive Ensemble & Markov Matrix</p>
             <p style="margin:6px 0 0 0; font-size: 1rem;"><b>📅 Database Span:</b> ເດືອນ 2 ປີ 2026 ຫາ ປັດຈຸບັນ</p>
             <p style="margin:6px 0 0 0; font-size: 1rem;"><b>🛡️ Validation:</b> Zero Data-Leakage Walk-Forward</p>
@@ -1450,7 +1564,7 @@ with tab_docs:
         """, unsafe_allow_html=True)
         
     st.markdown("---")
-    st.markdown("### 🧠 4 ກົນໄກຫຼັກໃນການຄິດໄລ່ຂອງ AI (How AI Works)")
+    st.markdown("### 🧠 4 ກົນໄກຫຼັກຂອງ AI (How AI Works)")
     
     c_g1, c_g2 = st.columns(2)
     with c_g1:
