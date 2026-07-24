@@ -29,8 +29,13 @@ st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
     
-    html, body, [class*="css"], div, span, button, input, select, textarea, p, h1, h2, h3, h4, h5, h6, label, table, th, td {
+    html, body, div, p, h1, h2, h3, h4, h5, h6, label, table, th, td {
         font-family: 'Noto Sans Lao', sans-serif !important;
+    }
+    
+    /* Preserve Streamlit Material Icons & Header Buttons */
+    [data-testid="stHeader"] *, [data-testid="stSidebarCollapseButton"] *, [class*="material-symbols"], [data-testid*="icon"] {
+        font-family: "Material Symbols Outlined", sans-serif !important;
     }
     
     .header-banner {
