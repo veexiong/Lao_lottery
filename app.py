@@ -30,19 +30,28 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
     
-    html, body, .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, button, div, span:not([class*="material"]), table, th, td, select, textarea {
-        font-family: 'Noto Sans Lao', sans-serif !important;
+    html, body, .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, div, table, th, td, select, textarea {
+        font-family: 'Noto Sans Lao', sans-serif;
     }
     
-    /* Preserve Streamlit Material Icons in Header & Sidebar */
+    /* Preserve Streamlit Material Icons in Header, Sidebar & Collapsed Mobile Control */
     [data-testid="stHeader"] *, 
     [data-testid="stSidebarHeader"] *, 
     [data-testid="stSidebarCollapseButton"] *, 
+    [data-testid="stSidebarCollapseButton"] button *,
+    [data-testid="collapsedControl"] *,
+    [data-testid="collapsedControl"] button *,
+    button[aria-label*="sidebar"] *,
+    button[aria-label*="Sidebar"] *,
+    button[title*="sidebar"] *,
     [data-testid="stSidebar"] button *, 
     [class*="material-symbols"], 
+    [class*="material-icons"],
     [data-testid*="icon"],
-    span[class*="material"] {
+    span[class*="material"],
+    i[class*="material"] {
         font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons', sans-serif !important;
     }
     
@@ -260,12 +269,15 @@ st.markdown("""
         display: none !important;
     }
     div[data-baseweb="tab-list"] {
+        position: sticky !important;
+        top: 54px !important;
+        z-index: 999 !important;
         gap: 6px !important;
         background: #f1f5f9 !important;
         padding: 5px !important;
         border-radius: 14px !important;
         border: 1px solid #cbd5e1 !important;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
         overflow-x: auto !important;
         flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch !important;
@@ -305,6 +317,7 @@ st.markdown("""
 
     @media (max-width: 768px) {
         div[data-baseweb="tab-list"] {
+            top: 48px !important;
             justify-content: flex-start !important;
             gap: 4px !important;
             padding: 4px !important;
