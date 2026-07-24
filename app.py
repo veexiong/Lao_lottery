@@ -28,14 +28,22 @@ st.set_page_config(
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
     
-    html, body, div, p, h1, h2, h3, h4, h5, h6, label, table, th, td {
-        font-family: 'Noto Sans Lao', sans-serif !important;
+    .stApp, .main, [data-testid="stSidebar"], p, h1, h2, h3, h4, h5, h6, label, table, th, td, input, select, textarea {
+        font-family: 'Noto Sans Lao', sans-serif;
     }
     
-    /* Preserve Streamlit Material Icons & Header Buttons */
-    [data-testid="stHeader"] *, [data-testid="stSidebarCollapseButton"] *, [class*="material-symbols"], [data-testid*="icon"] {
-        font-family: "Material Symbols Outlined", sans-serif !important;
+    /* Preserve Streamlit Material Icons in Header & Sidebar */
+    [data-testid="stHeader"] *, 
+    [data-testid="stSidebarHeader"] *, 
+    [data-testid="stSidebarCollapseButton"] *, 
+    [data-testid="stSidebar"] button *, 
+    [class*="material-symbols"], 
+    [data-testid*="icon"],
+    span[class*="material"] {
+        font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons', sans-serif !important;
     }
     
     .header-banner {
