@@ -1110,13 +1110,22 @@ with tab_pred:
             if 'active_row_idx' not in st.session_state:
                 st.session_state['active_row_idx'] = len(df_history) - 1
 
-            if st.session_state['active_row_idx'] >= len(df_history):
-                st.session_state['active_row_idx'] = len(df_history) - 1
+            try:
+                current_active_i = int(st.session_state['active_row_idx'])
+            except (ValueError, TypeError):
+                current_active_i = len(df_history) - 1
 
-            current_active_i = st.session_state['active_row_idx']
+            if current_active_i >= len(df_history) or current_active_i < 0:
+                current_active_i = len(df_history) - 1
+                st.session_state['active_row_idx'] = current_active_i
 
             def on_select_draw_change():
-                idx = st.session_state.get('past_draw_select_key', current_active_i)
+                raw_val = st.session_state.get('past_draw_select_key', current_active_i)
+                try:
+                    idx = int(raw_val)
+                except (ValueError, TypeError):
+                    idx = current_active_i
+                
                 st.session_state['active_row_idx'] = idx
                 sel_row = df_history.iloc[idx]
                 st.session_state['input_6d_val'] = str(sel_row['number_6d'])
@@ -1124,17 +1133,25 @@ with tab_pred:
                 if d_obj != datetime.date.min:
                     st.session_state['input_date_val'] = d_obj
 
+            def format_draw_item(i):
+                idx_i = int(i)
+                row_i = df_history.iloc[idx_i]
+                if idx_i == current_active_i:
+                    return f"ງວດ {row_i['draw_date']} ({row_i['day_of_week']}) -> 🟢 {row_i['number_6d']}"
+                return f"ງວດ {row_i['draw_date']} ({row_i['day_of_week']}) -> {row_i['number_6d']}"
+
             selected_row_idx = st.selectbox(
                 "ເລືອກງວດທີ່ອອກແລ້ວ:",
-                range(len(df_history)),
+                list(range(len(df_history))),
                 index=current_active_i,
                 key="past_draw_select_key",
                 on_change=on_select_draw_change,
-                format_func=lambda i: f"ງວດ {df_history.iloc[i]['draw_date']} ({df_history.iloc[i]['day_of_week']}) -> 🟢 {df_history.iloc[i]['number_6d']}" if i == current_active_i else f"ງວດ {df_history.iloc[i]['draw_date']} ({df_history.iloc[i]['day_of_week']}) -> {df_history.iloc[i]['number_6d']}"
+                format_func=format_draw_item
             )
             if st.button("📥 ໃຊ້ຂໍ້ມູນງວດນີ້ຄາດຄະເນງວດຕໍ່ໄປ", use_container_width=True):
-                sel_row = df_history.iloc[selected_row_idx]
-                st.session_state['active_row_idx'] = selected_row_idx
+                idx_sel = int(selected_row_idx)
+                sel_row = df_history.iloc[idx_sel]
+                st.session_state['active_row_idx'] = idx_sel
                 st.session_state['input_6d_val'] = str(sel_row['number_6d'])
                 d_obj = parse_date_obj(sel_row['draw_date'])
                 if d_obj != datetime.date.min:
