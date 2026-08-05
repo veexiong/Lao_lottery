@@ -486,7 +486,8 @@ SEED_DRAWS = [
     ("29/07/2026", "Wednesday", "081480", "1480", "480", "80"),
     ("30/07/2026", "Thursday", "740702", "0702", "702", "02"),
     ("29/07/2026", "Friday", "323290", "3290", "290", "90"),
-    ("03/08/2026", "Monday", "111680", "1680", "680", "80")
+    ("03/08/2026", "Monday", "111680", "1680", "680", "80"),
+    ("04/08/2026", "Tuesday", "437886", "7886", "886", "86")
 ]
 
 ANIMAL_DATA = [
@@ -1125,7 +1126,7 @@ st.markdown("""
 
 # Initialize Session State for Widget Values if not set
 if 'input_6d_val' not in st.session_state:
-    st.session_state['input_6d_val'] = "111680"
+    st.session_state['input_6d_val'] = "437886"
 if 'input_date_val' not in st.session_state:
     st.session_state['input_date_val'] = datetime.date.today()
 
