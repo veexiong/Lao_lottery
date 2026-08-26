@@ -1097,9 +1097,9 @@ st.sidebar.header("⚖️ ນ້ຳໜັກສູດ AI")
 w_neighbor = st.sidebar.slider("ນ້ຳໜັກສູດ Neighbor Shift (±1)", 0, 50, 25)
 w_mod10 = st.sidebar.slider("ນ້ຳໜັກສູດ Modulo 10", 0, 50, 20)
 w_mirror = st.sidebar.slider("ນ້ຳໜັກສູດ เลขเงา (Mirror Map)", 0, 50, 20)
-w_freq = st.sidebar.slider("ນ້ຳໜັກສູດ ຄວາມຖີ່ (Frequency)", 0, 50, 20)
+w_freq = st.sidebar.slider("ນ້ຳໜັກສູດ ຄວາມຖີ່ (Frequency)", 0, 50, 25)
 w_trend = st.sidebar.slider("ນ້ຳໜັກສູດ Pattern Trend", 0, 50, 15)
-w_markov = st.sidebar.slider("ນ້ຳໜັກສູດ Markov Transition", 0, 50, 15)
+w_markov = st.sidebar.slider("ນ້ຳໜັກສູດ Markov Transition", 0, 50, 10)
 
 if st.sidebar.button("⚡ ໃຫ້ AI ຄົ້ນຫາ Weight ທີ່ດີທີ່ສຸດ", use_container_width=True, type="primary"):
     with st.spinner("🤖 AI ກຳລັງປະມວນຜົນ Grid Search ແລະ Walk-Forward..."):
